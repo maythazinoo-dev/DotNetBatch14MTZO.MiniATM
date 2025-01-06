@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DotNetBatch14MTZO.DB;
+namespace DotNetBatch14MTZO.DB.Model;
 
 [Table("Tbl_UserAcount")]
 public class UserAcountModel
@@ -18,4 +18,11 @@ public class UserAcountModel
     public decimal Balance { get; set; }
 
     public string? CardNumber { get; set; } = string.Empty;
+}
+
+public class AcountResponseModel
+{
+    public bool IsSuccess { get; set; }
+    public string Message { get; set; }
+
 }

@@ -1,11 +1,11 @@
-﻿using DotNetBatch14MTZO.DB;
+﻿using DotNetBatch14MTZO.DB.Model;
 using DotNetBatch14MTZO.MiniATM.Domain.MiniATMServices;
 using DotNetBatch14MTZO.MiniATM.Domain.MiniATMServices.Model;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace DotNetBatch14MTZO.MiniATM.RestApi.Controllers
+namespace DotNetBatch14MTZO.MiniATM.RestApi.Features
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -21,14 +21,14 @@ namespace DotNetBatch14MTZO.MiniATM.RestApi.Controllers
         [HttpPost("login")]
         public IActionResult Login(string cardNumber, int pin)
         {
-            var user =_miniATMService.Login(cardNumber, pin);
+            var user = _miniATMService.Login(cardNumber, pin);
             return user == null ? NotFound("Invalid card number or PIN.") : Ok(user);
         }
 
-        [HttpPost("create")]
+        [HttpPost("register")]
         public async Task<IActionResult> Create(UserAcountModel requestModel)
         {
-            var model = _miniATMService.CreateAcount(requestModel);
+            var model = _miniATMService.RegisterAcount(requestModel);
             if (!model.IsSuccess)
             {
                 return BadRequest(model);
@@ -51,7 +51,7 @@ namespace DotNetBatch14MTZO.MiniATM.RestApi.Controllers
         [HttpPost("deposit")]
         public IActionResult Deposit(string cardNumber, decimal amount)
         {
-            var model =_miniATMService.Deposit(cardNumber, amount);
+            var model = _miniATMService.Deposit(cardNumber, amount);
             if (!model.IsSuccess)
             {
                 return NotFound(model);
@@ -68,7 +68,7 @@ namespace DotNetBatch14MTZO.MiniATM.RestApi.Controllers
                 return NotFound("Acount Not Found");
             }
 
-           return Ok(user);
+            return Ok(user);
         }
 
     }

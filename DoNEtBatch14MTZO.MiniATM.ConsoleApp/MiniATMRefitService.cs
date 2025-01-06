@@ -24,7 +24,7 @@ namespace DoNEtBatch14MTZO.MiniATM.ConsoleApp
             return model;
         }
 
-        public async Task<AcountResponseModel> Create(UserAcountModel requestModel)
+        public async Task<AcountResponseModel> Register(UserAcountModel requestModel)
         {
             var model = await _api.Create(requestModel);
             return model;
@@ -53,13 +53,13 @@ namespace DoNEtBatch14MTZO.MiniATM.ConsoleApp
         [Post("/api/miniatm/login")]
         Task<AcountResponseModel> Login(string cardNumber, int pin);
 
-        [Post("/api/miniatm/create")]
+        [Post("/api/miniatm/register")]
         Task<AcountResponseModel> Create(UserAcountModel requestModel);
 
-        [Post("/api/MiniATM/withdraw")]
+        [Post("/api/miniatm/withdraw")]
         Task<AcountResponseModel> Withdraw(string cardNumber, decimal amount);
 
-        [Post("/api/MiniATM/deposit")]
+        [Post("/api/miniatm/deposit")]
         Task<AcountResponseModel> Deposit(string cardNumber, decimal amount);
 
         [Get("/api/miniatm/balance")]

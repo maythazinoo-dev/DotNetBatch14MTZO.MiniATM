@@ -24,6 +24,7 @@ namespace DoNEtBatch14MTZO.MiniATM.ConsoleApp
        // }
         public async Task RunAsync()
         {
+            //CreateAccount();
             Console.WriteLine("Mini ATM Console");
             bool isRunning = true;
 
@@ -106,7 +107,7 @@ namespace DoNEtBatch14MTZO.MiniATM.ConsoleApp
             };
 
 
-            var response = await _minATMRefitService.Create(userAcountModel);
+            var response = await _minATMRefitService.Register(userAcountModel);
 
             Console.WriteLine(response.IsSuccess ? "Create Acount Successful":$"Create Acount Failed : {response.Message}");
         }

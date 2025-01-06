@@ -1,4 +1,5 @@
 ﻿using DotNetBatch14MTZO.DB;
+using DotNetBatch14MTZO.DB.Model;
 using DotNetBatch14MTZO.MiniATM.Domain.MiniATMServices.Model;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Primitives;
@@ -8,6 +9,7 @@ using System.Linq;
 using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading.Tasks;
+using AcountResponseModel = DotNetBatch14MTZO.MiniATM.Domain.MiniATMServices.Model.AcountResponseModel;
 
 namespace DotNetBatch14MTZO.MiniATM.Domain.MiniATMServices
 {
@@ -47,34 +49,14 @@ namespace DotNetBatch14MTZO.MiniATM.Domain.MiniATMServices
             {
                 IsSuccess = true,
                 Message = "Login Successful",
-               
+
             };
-              
 
-
-
-            //if (userModel == null)
-            //{
-            //    AcountlistResponseModel acountlistResponseModel = new AcountlistResponseModel()
-            //    {
-            //        IsSuccess = false,
-            //        Message = "Acount Not Found",
-            //        Data = userModel
-            //    };
-            //    return acountlistResponseModel;
-            //}
         }
 
-        public AcountResponseModel CreateAcount(UserAcountModel requestModel)
+        public AcountResponseModel RegisterAcount(UserAcountModel requestModel)
         {
-            //var user = new UserAcountModel
-            //{
-            //    Name = requestModel.Name,
-            //    Pin = requestModel.Pin,
-            //    Balance = requestModel.Balance,
-            //     CardNumber = requestModel.CardNumber
-            //};
-
+          
 
 
             _db.UserAcounts.Add(requestModel);

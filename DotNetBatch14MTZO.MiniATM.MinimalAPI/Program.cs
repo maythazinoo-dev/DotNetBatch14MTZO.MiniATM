@@ -1,4 +1,4 @@
-using DotNetBatch14MTZO.DB;
+using DotNetBatch14MTZO.DB.Model;
 using DotNetBatch14MTZO.MiniATM.Domain.MiniATMServices;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -19,25 +19,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-//var summaries = new[]
-//{
-//    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-//};
 
-//app.MapGet("/weatherforecast", () =>
-//{
-//    var forecast = Enumerable.Range(1, 5).Select(index =>
-//        new WeatherForecast
-//        (
-//            DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-//            Random.Shared.Next(-20, 55),
-//            summaries[Random.Shared.Next(summaries.Length)]
-//        ))
-//        .ToArray();
-//    return forecast;
-//})
-//.WithName("GetWeatherForecast")
-//.WithOpenApi();
 
 app.MapPost("api/miniatm/login", async (string cardNumber, int pin) =>
 {
@@ -46,44 +28,40 @@ app.MapPost("api/miniatm/login", async (string cardNumber, int pin) =>
     return user != null ? Results.Ok(user) : Results.NotFound("Invalid card number or PIN.");
 });
 
-app.MapPost("/api/ATM/create", async (UserAcountModel account) =>
+app.MapPost("/api/miniatm/register", async (UserAcountModel account) =>
 {
     MiniATMEFCoreService miniATMEFCoreService = new MiniATMEFCoreService();
-    var response = miniATMEFCoreService.CreateAcount(account);
+    var response = miniATMEFCoreService.RegisterAcount(account);
     return response.IsSuccess ? Results.Ok(response) : Results.BadRequest(response);
 });
 
-app.MapPost("/api/ATM/withdraw", async (string cardNumber, decimal amount) =>
+app.MapPost("/api/miniatm/withdraw", async (string cardNumber, decimal amount) =>
 {
     MiniATMEFCoreService miniATMEFCoreService = new MiniATMEFCoreService();
     var response = miniATMEFCoreService.WithdrawCash(cardNumber, amount);
     return response.IsSuccess ? Results.Ok(response) : Results.BadRequest(response);
 });
 
-app.MapPost("/api/ATM/deposit", async (string cardNumber, decimal amount, MiniATMEFCoreService service) =>
+app.MapPost("/api/miniatm/deposit", async (string cardNumber, decimal amount) =>
 {
     MiniATMEFCoreService miniATMEFCoreService = new MiniATMEFCoreService();
     var response = miniATMEFCoreService.Deposit(cardNumber, amount);
     return response.IsSuccess ? Results.Ok(response) : Results.BadRequest(response);
 });
 
-app.MapGet("/api/ATM/balance", (string cardNumber) =>
+app.MapGet("/api/miniatm/balance", (string cardNumber) =>
 {
     MiniATMEFCoreService miniATMEFCoreService = new MiniATMEFCoreService();
-    var user = miniATMEFCoreService.GetBalance(cardNumber);
+    var response = miniATMEFCoreService.GetBalance(cardNumber);
 
-    if (user == null)
+    if (response == null)
     {
         return Results.NotFound("Acount Not Found");
     }
 
-    return Results.Ok(user);
+    return Results.Ok(response);
    
 });
 
 app.Run();
 
-//internal record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-//{
-//    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-//}

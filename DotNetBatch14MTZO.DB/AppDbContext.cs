@@ -1,4 +1,5 @@
-﻿using Microsoft.Data.SqlClient;
+﻿using DotNetBatch14MTZO.DB.Model;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
