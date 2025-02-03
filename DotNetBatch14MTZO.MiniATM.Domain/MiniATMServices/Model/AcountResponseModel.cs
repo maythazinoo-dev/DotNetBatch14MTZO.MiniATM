@@ -14,10 +14,5 @@ namespace DotNetBatch14MTZO.MiniATM.Domain.MiniATMServices.Model
 
     }
 
-    //public class AcountlistResponseModel
-    //{
-    //    public bool IsSuccess { get; set; }
-    //    public string Message { get; set; }
-    //    public List<UserAcountModel> Data { get; set; }
-    //}
+    
 }

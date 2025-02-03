@@ -25,17 +25,7 @@ namespace DotNetBatch14MTZO.MiniATM.Domain.MiniATMServices
         public AcountResponseModel Login(string cardNumber, int pin)
         {
             var userModel = _db.UserAcounts.FirstOrDefault(u => u.CardNumber == cardNumber && u.Pin == pin);
-            //var userModel1 = _db.UserAcounts.FirstOrDefault(u => u.CardNumber == cardNumber);
-            //if (userModel1 == null || userModel1.Pin != pin)
-            //{
-            //    Console.WriteLine("Login Failed");
-
-            //}
-            //else if(userModel1.Pin != pin) {
-            //{
-            //    Console.WriteLine("login Successful");
-
-            //}
+            
             if (userModel == null)
             {
                 return new AcountResponseModel()
@@ -57,8 +47,6 @@ namespace DotNetBatch14MTZO.MiniATM.Domain.MiniATMServices
         public AcountResponseModel RegisterAcount(UserAcountModel requestModel)
         {
           
-
-
             _db.UserAcounts.Add(requestModel);
             var result = _db.SaveChanges();
 
